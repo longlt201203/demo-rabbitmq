@@ -1,0 +1,24 @@
+services:
+  queue:
+    # image: rabbitmq:latest
+    image: rabbitmq:3-management
+    ports:
+      - ${RABBITMQ_PORT}:5672
+      - 8080:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - ${DB_PORT}:1433
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: ${DB_PASS}
+    user: "0"
+    volumes:
+      - db_data:/var/opt/mssql/data
+
+volumes:
+  db_data:
