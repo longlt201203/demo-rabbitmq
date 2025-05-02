@@ -10,6 +10,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             username: process.env.DB_USER || "sa",
             password: process.env.DB_PASS || "Admin@123",
             synchronize: process.env.DB_SYNC === "true",
+            extra: {
+                trustServerCertificate: true
+            }
         })
     ]
 })
